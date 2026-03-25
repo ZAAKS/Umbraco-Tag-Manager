@@ -1,14 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NPoco;
-using Umbraco_Tag_Manager.Models;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Scoping;
+using Umbraco.Cms.Core.Serialization;
 using Umbraco.Cms.Core.Services;
+using Umbraco_Tag_Manager.Models;
 
 namespace Umbraco_Tag_Manager.Controllers
 {
@@ -39,6 +37,7 @@ namespace Umbraco_Tag_Manager.Controllers
         private readonly IMediaService _mediaService;
         private readonly IContentService _contentService;
         private readonly ITagService _tagService;
+        private readonly IJsonSerializer _serializer;
 
 
         public TagManagerApiController(
@@ -46,13 +45,15 @@ namespace Umbraco_Tag_Manager.Controllers
             ILogger<TagManagerApiController> logger,
             IMediaService mediaService,
             IContentService contentService,
-            ITagService tagService)
+            ITagService tagService,
+            IJsonSerializer serializer)
         {
             _scopeProvider = scopeProvider ?? throw new ArgumentNullException(nameof(scopeProvider));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _mediaService = mediaService ?? throw new ArgumentNullException(nameof(mediaService));
             _contentService = contentService ?? throw new ArgumentNullException(nameof(contentService));
             _tagService = tagService ?? throw new ArgumentNullException(nameof(tagService));
+            _serializer = serializer;
         }
 
         // -----------------------------------------------------------------------
@@ -490,7 +491,13 @@ namespace Umbraco_Tag_Manager.Controllers
                         oldTagName,
                         currentTags,
                         removedTagTextForCleanup);
-                    _contentService.Save(content);
+
+                    var result = _contentService.Save(content);
+
+                    if (result.Success && content.Published)
+                    {
+                        PublishResult publishResult = _contentService.Publish(content, []);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -621,7 +628,7 @@ namespace Umbraco_Tag_Manager.Controllers
         ///   - Otherwise fall back to writing the full current tag list from the database,
         ///     which is the authoritative source of truth.
         /// </summary>
-        private static void SetUpdatedTagValue(
+        private void SetUpdatedTagValue(
             IProperty property,
             CmsTags tag,
             string oldTagName,
@@ -639,7 +646,7 @@ namespace Umbraco_Tag_Manager.Controllers
             }
             else
             {
-                property.SetValue(currentTags.Any() ? string.Join(",", currentTags) : string.Empty);
+                property.SetValue(currentTags.Any() ? _serializer.Serialize(currentTags) : string.Empty);
             }
         }
     }
