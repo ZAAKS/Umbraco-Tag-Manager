@@ -10,6 +10,7 @@ using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Scoping;
 using Umbraco.Cms.Core.Serialization;
 using Umbraco.Cms.Core.Services;
+using Lucene.Net.QueryParsers.Flexible.Standard.Processors;
 
 namespace Umbraco_Tag_Manager.Controllers
 {
@@ -450,43 +451,54 @@ namespace Umbraco_Tag_Manager.Controllers
         /// </summary>
         private int UpdateTag(IScope scope, CmsTags tag)
         {
-            var oldTag = scope.Database.FirstOrDefault<CmsTags>(
-                "SELECT * FROM cmsTags WHERE id = @0", tag.Id);
-
-            var oldTagName = oldTag?.Tag ?? string.Empty;
-
-            var rows = scope.Database.Execute(
-                "UPDATE cmsTags SET tag = @0 WHERE id = @1", tag.Tag, tag.Id);
-
-            bool isMerging = rows == 1
-                && tag.TagsInGroup?.SelectedItem != null
-                && tag.Id != tag.TagsInGroup.SelectedItem.Id;
-
-            tag.TaggedDocuments = GetTaggedDocumentNodeIds(tag.Id);
-            tag.TaggedMedia = GetTaggedMediaNodeIds(tag.Id);
-
-            if (isMerging)
+            try
             {
-                var targetId = tag.TagsInGroup.SelectedItem.Id;
+                var oldTag = scope.Database.FirstOrDefault<CmsTags>(
+                    "SELECT * FROM cmsTags WHERE id = @0", tag.Id);
 
-                scope.Database.Execute(
-                    "UPDATE cmsTagRelationship " +
-                    "SET tagID = @0 " +
-                    "WHERE tagID = @1 " +
-                    "AND nodeId NOT IN (SELECT nodeId FROM cmsTagRelationship WHERE tagId = @0)",
-                    targetId, tag.Id);
+                var oldTagName = oldTag?.Tag ?? string.Empty;
 
-                scope.Database.Execute(
-                    "DELETE FROM cmsTagRelationship WHERE tagId = @0", tag.Id);
+                var rows = scope.Database.Execute(
+                    "UPDATE cmsTags SET tag = @0 WHERE id = @1", tag.Tag, tag.Id);
 
-                _logger.LogInformation(
-                    "Merged tag ID {SourceId} into tag ID {TargetId}", tag.Id, targetId);
+                bool isMerging = rows == 1
+                    && tag.TagsInGroup?.SelectedItem != null
+                    && tag.Id != tag.TagsInGroup.SelectedItem.Id;
+
+                tag.TaggedDocuments = GetTaggedDocumentNodeIds(tag.Id);
+                tag.TaggedMedia = GetTaggedMediaNodeIds(tag.Id);
+
+                if (isMerging)
+                {
+                    var targetId = tag.TagsInGroup.SelectedItem.Id;
+
+                    scope.Database.Execute(
+                        "UPDATE cmsTagRelationship " +
+                        "SET tagID = @0 " +
+                        "WHERE tagID = @1 " +
+                        "AND nodeId NOT IN (SELECT nodeId FROM cmsTagRelationship WHERE tagId = @0)",
+                        targetId, tag.Id);
+
+                    scope.Database.Execute(
+                        "DELETE FROM cmsTagRelationship WHERE tagId = @0", tag.Id);
+
+                    scope.Database.Execute(
+                        "DELETE FROM cmsTags WHERE id = @0", tag.Id);
+
+                    _logger.LogInformation(
+                        "Merged tag ID {SourceId} into tag ID {TargetId}", tag.Id, targetId);
+                }
+
+                UpdateContentProperties(tag, oldTagName);
+                UpdateMediaProperties(tag, oldTagName);
+
+                return rows;
             }
-
-            UpdateContentProperties(tag, oldTagName);
-            UpdateMediaProperties(tag, oldTagName);
-
-            return rows;
+            catch (Exception ex)
+            {
+                _logger.LogCritical("{error", ex.Message);
+                throw;
+            }
         }
 
         // -----------------------------------------------------------------------
@@ -624,8 +636,7 @@ namespace Umbraco_Tag_Manager.Controllers
             {
                 if (!IsTagProperty(property, tag, currentTags, removedTagTextForCleanup, relationshipPropertyTypeIds))
                     continue;
-
-                SetUpdatedTagValue(property, tag, oldTagName, currentTags);
+                SetUpdatedTagValue(property, currentTags);
                 modified = true;
             }
             return modified;
@@ -686,26 +697,11 @@ namespace Umbraco_Tag_Manager.Controllers
         /// </summary>
         private void SetUpdatedTagValue(
             IProperty property,
-            CmsTags tag,
-            string oldTagName,
             List<string> currentTags)
         {
-            var currentValue = property.GetValue()?.ToString() ?? string.Empty;
-
-            bool canDoTargetedReplace = !string.IsNullOrEmpty(oldTagName)
-                && currentValue.Contains(oldTagName, StringComparison.OrdinalIgnoreCase);
-
-            if (canDoTargetedReplace)
-            {
-                var updated = currentValue.Replace(oldTagName, tag.Tag, StringComparison.OrdinalIgnoreCase);
-                property.SetValue(updated);
-            }
-            else
-            {
                 // Tags / TagsPicker store JSON arrays; CSV corrupts the value and clears tags in the UI.
                 property.SetValue(
                     currentTags.Count > 0 ? _jsonSerializer.Serialize(currentTags) : string.Empty);
-            }
-        }
+         }
     }
 }
