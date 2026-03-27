@@ -1,27 +1,27 @@
-var m = Object.defineProperty;
-var p = (o, t, e) => t in o ? m(o, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : o[t] = e;
-var n = (o, t, e) => p(o, typeof t != "symbol" ? t + "" : t, e);
-import { LitElement as _, html as r, css as v, state as g, customElement as f } from "@umbraco-cms/backoffice/external/lit";
-import { UmbElementMixin as b } from "@umbraco-cms/backoffice/element-api";
-import { UMB_NOTIFICATION_CONTEXT as u } from "@umbraco-cms/backoffice/notification";
-import { UMB_MODAL_MANAGER_CONTEXT as y, UMB_CONFIRM_MODAL as x } from "@umbraco-cms/backoffice/modal";
+var p = Object.defineProperty;
+var _ = (o, t, e) => t in o ? p(o, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : o[t] = e;
+var u = (o, t, e) => _(o, typeof t != "symbol" ? t + "" : t, e);
+import { LitElement as v, html as l, css as f, state as h, customElement as b } from "@umbraco-cms/backoffice/external/lit";
+import { UmbElementMixin as y } from "@umbraco-cms/backoffice/element-api";
+import { UMB_NOTIFICATION_CONTEXT as g } from "@umbraco-cms/backoffice/notification";
+import { UMB_MODAL_MANAGER_CONTEXT as x, UMB_CONFIRM_MODAL as I } from "@umbraco-cms/backoffice/modal";
 import { T } from "./tagmanager-repository-BvW2JE0F.js";
-var h = Object.defineProperty, I = Object.getOwnPropertyDescriptor, w = (o, t, e) => t in o ? h(o, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : o[t] = e, d = (o, t, e, i) => {
-  for (var s = i > 1 ? void 0 : i ? I(t, e) : t, a = o.length - 1, c; a >= 0; a--)
-    (c = o[a]) && (s = (i ? c(t, e, s) : c(s)) || s);
-  return i && s && h(t, e, s), s;
-}, N = (o, t, e) => w(o, t + "", e);
-let l = class extends b(_) {
+var m = Object.defineProperty, w = Object.getOwnPropertyDescriptor, N = (o, t, e) => t in o ? m(o, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : o[t] = e, c = (o, t, e, i) => {
+  for (var s = i > 1 ? void 0 : i ? w(t, e) : t, a = o.length - 1, n; a >= 0; a--)
+    (n = o[a]) && (s = (i ? n(t, e, s) : n(s)) || s);
+  return i && s && m(t, e, s), s;
+}, $ = (o, t, e) => N(o, t + "", e);
+let d = class extends y(v) {
   constructor() {
     super();
-    n(this, "_repository");
-    n(this, "_locationPoller", null);
-    n(this, "_lastPathname", "");
-    n(this, "_loadRequestId", 0);
-    n(this, "_tag", null);
-    n(this, "_loading", !0);
-    n(this, "_saving", !1);
-    n(this, "_tagId");
+    u(this, "_repository");
+    u(this, "_locationPoller", null);
+    u(this, "_lastPathname", "");
+    u(this, "_loadRequestId", 0);
+    u(this, "_tag", null);
+    u(this, "_loading", !0);
+    u(this, "_saving", !1);
+    u(this, "_tagId");
     this._repository = new T(this);
   }
   async connectedCallback() {
@@ -86,7 +86,7 @@ let l = class extends b(_) {
     this._saving = !0;
     const t = await this._repository.save(this._tag);
     this._saving = !1;
-    const e = await this.getContext(u);
+    const e = await this.getContext(g);
     t ? e == null || e.peek("positive", {
       data: {
         headline: "Tag Saved",
@@ -102,10 +102,10 @@ let l = class extends b(_) {
   async _delete() {
     if (this._tag)
       try {
-        const t = await this.getContext(y);
+        const t = await this.getContext(x);
         if (!t) {
-          const a = await this.getContext(u);
-          a == null || a.peek("danger", {
+          const r = await this.getContext(g);
+          r == null || r.peek("danger", {
             data: {
               headline: "Error",
               message: "Unable to open confirmation dialog. Please try again."
@@ -113,7 +113,7 @@ let l = class extends b(_) {
           });
           return;
         }
-        const e = t.open(this, x, {
+        const e = t.open(this, I, {
           data: {
             headline: "Delete Tag",
             content: `Are you sure you want to delete the tag "${this._tag.tag}"?`,
@@ -122,8 +122,8 @@ let l = class extends b(_) {
           }
         });
         if (!e) {
-          const a = await this.getContext(u);
-          a == null || a.peek("danger", {
+          const r = await this.getContext(g);
+          r == null || r.peek("danger", {
             data: {
               headline: "Error",
               message: "Unable to open confirmation dialog. Please try again."
@@ -136,18 +136,20 @@ let l = class extends b(_) {
         } catch {
           return;
         }
+        const i = this._tag.tag, s = this._tag.group;
         this._saving = !0;
-        const i = await this._repository.deleteTag(this._tag);
+        const a = await this._repository.deleteTag(this._tag);
         this._saving = !1;
-        const s = await this.getContext(u);
-        i ? (s == null || s.peek("positive", {
+        const n = await this.getContext(g);
+        a ? (n == null || n.peek("positive", {
           data: {
             headline: "Tag Deleted",
-            message: `"${this._tag.tag}" has been deleted successfully`
+            message: `"${i}" has been deleted successfully`
           }
         }), setTimeout(() => {
-          history.back();
-        }, 500)) : s == null || s.peek("danger", {
+          const r = s != null && s.trim() ? `/umbraco/section/tagmanager/workspace/tagmanager-group/edit/${encodeURIComponent(s.trim())}` : "/umbraco/section/tagmanager";
+          history.pushState(null, "", r), window.dispatchEvent(new PopStateEvent("popstate"));
+        }, 500)) : n == null || n.peek("danger", {
           data: {
             headline: "Delete Failed",
             message: "Failed to delete the tag. Please try again."
@@ -155,7 +157,7 @@ let l = class extends b(_) {
         });
       } catch {
         this._saving = !1;
-        const e = await this.getContext(u);
+        const e = await this.getContext(g);
         e == null || e.peek("danger", {
           data: {
             headline: "Error",
@@ -181,7 +183,7 @@ let l = class extends b(_) {
     });
   }
   render() {
-    return this._loading ? r`<div class="loader-container"><uui-loader></uui-loader></div>` : this._tag ? r`
+    return this._loading ? l`<div class="loader-container"><uui-loader></uui-loader></div>` : this._tag ? l`
 			<div class="tag-editor">
 				<uui-box class="editor-header-box">
 					<div class="editor-header">
@@ -214,7 +216,7 @@ let l = class extends b(_) {
 								color="positive"
 								@click=${this._save}
 								?disabled=${this._saving}>
-								${this._saving ? r`<uui-loader></uui-loader>` : r`<uui-icon name="icon-save"></uui-icon>`}
+								${this._saving ? l`<uui-loader></uui-loader>` : l`<uui-icon name="icon-save"></uui-icon>`}
 								Save
 							</uui-button>
 						</div>
@@ -239,7 +241,7 @@ let l = class extends b(_) {
 								${this._tag.tagsInGroup && this._tag.tagsInGroup.options && this._tag.tagsInGroup.options.length > 1 ? (() => {
       var e, i;
       const t = ((i = (e = this._tag.tagsInGroup) == null ? void 0 : e.selectedItem) == null ? void 0 : i.id) ?? 0;
-      return r`
+      return l`
 											<uui-form-layout-item>
 												<uui-label slot="label" for="mergeTag">Merge with Tag</uui-label>
 												<select
@@ -249,7 +251,7 @@ let l = class extends b(_) {
 													@change=${this._onMergeTagChange}
 													?disabled=${this._saving}>
 													${this._tag.tagsInGroup.options.map(
-        (s) => r`
+        (s) => l`
 															<option 
 																value="${s.id}"
 																?selected=${s.id === t}>
@@ -269,11 +271,11 @@ let l = class extends b(_) {
 					</div>
 
 					<div class="right-column">
-						${this._tag.taggedDocuments && this._tag.taggedDocuments.length > 0 ? r`
+						${this._tag.taggedDocuments && this._tag.taggedDocuments.length > 0 ? l`
 									<uui-box headline="Tagged Content (${this._tag.taggedDocuments.length})">
 										<div class="content-list">
 											${this._tag.taggedDocuments.map(
-      (t) => r`
+      (t) => l`
 													<uui-ref-node
 														name="${t.documentName || t.DocumentName}"
 														href="${t.documentUrl || t.DocumentUrl}">
@@ -283,7 +285,7 @@ let l = class extends b(_) {
     )}
 										</div>
 									</uui-box>
-							  ` : r`
+							  ` : l`
 									<uui-box headline="Tagged Content">
 										<div class="empty-state">
 											<uui-icon name="icon-document"></uui-icon>
@@ -294,10 +296,10 @@ let l = class extends b(_) {
 					</div>
 				</div>
 			</div>
-		` : r`<p>Tag not found</p>`;
+		` : l`<p>Tag not found</p>`;
   }
 };
-N(l, "styles", v`
+$(d, "styles", f`
 		:host {
 			display: block;
 			height: 100%;
@@ -459,24 +461,24 @@ N(l, "styles", v`
 			}
 		}
 	`);
-d([
-  g()
-], l.prototype, "_tag", 2);
-d([
-  g()
-], l.prototype, "_loading", 2);
-d([
-  g()
-], l.prototype, "_saving", 2);
-d([
-  g()
-], l.prototype, "_tagId", 2);
-l = d([
-  f("tag-edit-view")
-], l);
-const k = l;
+c([
+  h()
+], d.prototype, "_tag", 2);
+c([
+  h()
+], d.prototype, "_loading", 2);
+c([
+  h()
+], d.prototype, "_saving", 2);
+c([
+  h()
+], d.prototype, "_tagId", 2);
+d = c([
+  b("tag-edit-view")
+], d);
+const C = d;
 export {
-  l as TagEditViewElement,
-  k as default
+  d as TagEditViewElement,
+  C as default
 };
-//# sourceMappingURL=tag-edit-view.element-Bcp9NRRn.js.map
+//# sourceMappingURL=tag-edit-view.element-B8A-rxog.js.map
