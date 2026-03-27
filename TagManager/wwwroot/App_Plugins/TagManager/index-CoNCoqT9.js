@@ -81,7 +81,7 @@ const g = new r(
     type: "repository",
     alias: e,
     name: "Tag Manager Tree Repository",
-    api: () => import("./tagmanager-tree.repository-DuGU7U8J.js")
+    api: () => import("./tagmanager-tree.repository-B359XC0w.js")
   },
   {
     type: "treeStore",
@@ -147,7 +147,7 @@ const g = new r(
     type: "workspaceView",
     alias: "TagManager.TagWorkspace.Edit",
     name: "Tag Edit Workspace View",
-    element: () => import("./tag-edit-view.element-Bcp9NRRn.js"),
+    element: () => import("./tag-edit-view.element-B8A-rxog.js"),
     weight: 300,
     meta: {
       label: "Edit",
@@ -174,4 +174,4 @@ export {
   g as U,
   p as o
 };
-//# sourceMappingURL=index-CLBDHkH7.js.map
+//# sourceMappingURL=index-CoNCoqT9.js.map

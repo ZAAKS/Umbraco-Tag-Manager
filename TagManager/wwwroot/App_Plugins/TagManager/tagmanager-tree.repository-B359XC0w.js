@@ -5,7 +5,7 @@ var d = (r, a, t) => a.has(r) || h("Cannot " + t);
 var p = (r, a, t) => (d(r, a, "read from private field"), t ? t.call(r) : a.get(r)), f = (r, a, t) => a.has(r) ? h("Cannot add the same private member more than once") : a instanceof WeakSet ? a.add(r) : a.set(r, t), y = (r, a, t, e) => (d(r, a, "write to private field"), e ? e.call(r, t) : a.set(r, t), t), l = (r, a, t) => (d(r, a, "access private method"), t);
 import { UmbTreeServerDataSourceBase as G, UmbTreeRepositoryBase as I } from "@umbraco-cms/backoffice/tree";
 import { T as C } from "./tagmanager-repository-BvW2JE0F.js";
-import { U as O } from "./index-CLBDHkH7.js";
+import { U as O } from "./index-CoNCoqT9.js";
 var s, o, T, R;
 class q extends G {
   constructor(t) {
@@ -117,4 +117,4 @@ export {
   U as TagManagerTreeRepository,
   U as default
 };
-//# sourceMappingURL=tagmanager-tree.repository-DuGU7U8J.js.map
+//# sourceMappingURL=tagmanager-tree.repository-B359XC0w.js.map
