@@ -193,6 +193,8 @@ export class TagEditViewElement extends UmbElementMixin(LitElement) {
 			} catch (error) {
 				return;
 			}
+			const deletedTagName = this._tag.tag;
+			const deletedTagGroup = this._tag.group;
 			this._saving = true;
 			const success = await this._repository.deleteTag(this._tag);
 			this._saving = false;
@@ -203,11 +205,15 @@ export class TagEditViewElement extends UmbElementMixin(LitElement) {
 				notificationContext?.peek('positive', {
 					data: {
 						headline: 'Tag Deleted',
-						message: `"${this._tag.tag}" has been deleted successfully`,
+						message: `"${deletedTagName}" has been deleted successfully`,
 					},
 				});
 				setTimeout(() => {
-					history.back();
+					const groupRoute = deletedTagGroup?.trim()
+						? `/umbraco/section/tagmanager/workspace/tagmanager-group/edit/${encodeURIComponent(deletedTagGroup.trim())}`
+						: '/umbraco/section/tagmanager';
+					history.pushState(null, '', groupRoute);
+					window.dispatchEvent(new PopStateEvent('popstate'));
 				}, 500);
 			} else {
 				notificationContext?.peek('danger', {

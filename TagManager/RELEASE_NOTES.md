@@ -1,5 +1,14 @@
 # TagManager release notes
 
+## 17.0.7
+
+### Backoffice (client)
+
+- **Delete tag navigation** now routes deterministically to the deleted tag's **group workspace** instead of relying on `history.back()`.
+- Adds a safe fallback route to the **Tag Manager dashboard** when the group value is unavailable.
+
+---
+
 ## 17.0.6
 
 ### API / server

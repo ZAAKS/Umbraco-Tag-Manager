@@ -39,6 +39,15 @@ The tree is split into separate branches for each tag group created, which is us
 
 # TagManager release notes
 
+## 17.0.7
+
+### Backoffice (client)
+
+- **Delete tag success navigation** now redirects directly to the deleted tag's **group workspace** (`/umbraco/section/tagmanager/workspace/tagmanager-group/edit/{group}`) with a safe fallback to the section root when group data is missing.
+- Replaces browser `history.back()` behavior after delete, so users consistently return to the expected tags overview page.
+
+---
+
 ## 17.0.6
 
 ### API / server
