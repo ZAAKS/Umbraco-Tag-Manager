@@ -3,6 +3,7 @@
   "AddOnPackagesRequiredForUmbracoCloud": [],
   "AuthorDetails": {
     "Name": "ZAAKS!",
+    "Description":"ZAAKS! is a digital agency specializing in Umbraco CMS, .NET development, AI-powered solutions, and custom web platforms. With decades of experience in the Microsoft and Umbraco ecosystem, ZAAKS! focuses on delivering scalable, user-friendly, and future-ready digital experiences tailored to modern business needs.",
     "Url": "https://www.zaaks.nl/",
     "ImageUrl": "https://www.zaaks.nl/media/jkdpi1c1/zaaks_umbraco__logo.png",
     "SyncContributorsFromRepository": false

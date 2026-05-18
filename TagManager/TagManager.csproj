@@ -16,7 +16,7 @@
 		<PackageTags>umbraco plugin package,umbraco-marketplace</PackageTags>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>17.0.7</Version>
+		<Version>17.0.8</Version>
 		<Company>ZAAKS!</Company>
 		<Authors>ZAAKS!</Authors>
 		<!-- false: avoids Pack-after-Build conflicting with Pack needing Build (MSB4006). Use `dotnet pack` for NuGet; NuGet then runs Build first so static web assets match wwwroot after Vite. -->
