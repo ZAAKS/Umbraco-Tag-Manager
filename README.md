@@ -39,6 +39,15 @@ The tree is split into separate branches for each tag group created, which is us
 
 # TagManager release notes
 
+## 17.0.8
+
+### Backoffice (client)
+
+- **Umbraco 17.3+ compatibility**: Package manifest entry point registration now uses **`backofficeEntryPoint`** instead of deprecated **`entryPoint`**.
+- Restores backoffice initialization so the **Tag Manager section, tree, and workspaces** register and appear correctly.
+
+---
+
 ## 17.0.7
 
 ### Backoffice (client)
