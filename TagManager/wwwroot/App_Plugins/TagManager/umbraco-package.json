@@ -8,7 +8,7 @@
 		{
 			"name": "Tag Manager EntryPoint",
 			"alias": "tagmanager.entrypoint",
-			"type": "entryPoint",
+			"type": "backofficeEntryPoint",
 			"js": "/App_Plugins/TagManager/tagmanager.js"
 		}
 	]
