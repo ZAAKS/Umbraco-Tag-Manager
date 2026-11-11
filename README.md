@@ -1,6 +1,18 @@
-# Umbraco 17 Tag Manager
+# Umbraco Tag Manager
 
-This package installs a custom section within the Umbraco administration area.
+This package installs a custom section within the Umbraco administration area for managing tags.
+
+## Install
+
+Use the package that matches the Umbraco version on the site. `TagManager.AI` is optional and only for Umbraco 17 sites that already have Umbraco.AI.
+
+| Umbraco | Package | Install |
+| --- | --- | --- |
+| 18 | TagManager 18.0.0 | `dotnet add package TagManager --version 18.0.0` |
+| 17 | TagManager 17.0.9 | `dotnet add package TagManager --version 17.0.9` |
+| 17, with Umbraco.AI | TagManager.AI 17.0.0 | `dotnet add package TagManager.AI --version 17.0.0` |
+
+TagManager 18.0.0 depends on Umbraco 18 only. TagManager 17.0.9 depends on Umbraco 17 only. TagManager.AI is not part of the TagManager package.
 
 ## Credits
 This package is #friendly courtesy of [Nigel Wilson](https://our.umbraco.com/members/id:6116/), who built the initial package a zillion years ago. We converted and polished it with his consent - again - #h5yr Nigel.
@@ -13,7 +25,7 @@ For V13 websites, use our previous version: [Umbraco 13 Tag Manager](https://www
 
 ## Screenshot
 
-Here�s a quick look at how it appears in the Umbraco backoffice:
+Here's a quick look at how it appears in the Umbraco backoffice:
 
 ![Screenshot](https://raw.githubusercontent.com/ZAAKS/Umbraco-Tag-Manager/main/screenshot/TagManager.png)
 
