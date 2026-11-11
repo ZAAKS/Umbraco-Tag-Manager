@@ -13,13 +13,22 @@
   "IsSubPackageOf": "",
   "PackageType": "Package",
   "PackagesByAuthor": [],
-  "RelatedPackages": [],
+  "RelatedPackages": [
+    {
+      "PackageId": "TagManager.AI",
+      "Description": "Optional Create with AI action for the Umbraco Tags editor."
+    }
+  ],
   "LicenseTypes": [ "Free" ],
   "Tags": [ "umbraco", "plugin", "package", "umbraco-marketplace" ],
   "Title": "Tag Manager",
   "VersionSpecificPackageIds": [
     {
       "UmbracoMajorVersion": 17,
+      "PackageId": "TagManager"
+    },
+    {
+      "UmbracoMajorVersion": 18,
       "PackageId": "TagManager"
     }
   ],

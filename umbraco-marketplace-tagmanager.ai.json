@@ -1,0 +1,44 @@
+{
+  "$schema": "https://marketplace.umbraco.com/umbraco-marketplace-schema.json",
+  "AddOnPackagesRequiredForUmbracoCloud": [],
+  "AlternateCategory": "Artificial Intelligence",
+  "AuthorDetails": {
+    "Name": "ZAAKS!",
+    "Description": "ZAAKS! is a digital agency specializing in Umbraco CMS, .NET development, AI-powered solutions, and custom web platforms. With decades of experience in the Microsoft and Umbraco ecosystem, ZAAKS! focuses on delivering scalable, user-friendly, and future-ready digital experiences tailored to modern business needs.",
+    "Url": "https://www.zaaks.nl/",
+    "ImageUrl": "https://www.zaaks.nl/media/jkdpi1c1/zaaks_umbraco__logo.png",
+    "SyncContributorsFromRepository": false
+  },
+  "Category": "Editor Tools",
+  "Description": "Optional Create with AI action for the built-in Umbraco Tags editor. Asks how many tags to suggest, then adds them to the field. Requires Umbraco.AI.",
+  "DocumentationUrl": "https://github.com/ZAAKS/Umbraco-Tag-Manager",
+  "IssueTrackerUrl": "https://github.com/ZAAKS/Umbraco-Tag-Manager/issues",
+  "LicenseTypes": [ "Free" ],
+  "PackageType": "Package",
+  "PackagesByAuthor": [ "TagManager" ],
+  "RelatedPackages": [
+    {
+      "PackageId": "TagManager",
+      "Description": "Manage Umbraco tags, see where they are used, and edit or delete them."
+    }
+  ],
+  "Tags": [ "umbraco", "plugin", "package", "umbraco-marketplace", "ai", "tags" ],
+  "Title": "Tag Manager AI",
+  "VersionSpecificPackageIds": [
+    {
+      "UmbracoMajorVersion": 17,
+      "PackageId": "TagManager.AI"
+    }
+  ],
+  "VideoUrl": "https://github.com/ZAAKS/Umbraco-Tag-Manager/raw/main/TagManager.AI/Clip/tag-manager-ai.mp4",
+  "Screenshots": [
+    {
+      "ImageUrl": "https://raw.githubusercontent.com/ZAAKS/Umbraco-Tag-Manager/main/TagManager.AI/icon.png",
+      "Caption": "Tag Manager AI"
+    },
+    {
+      "VideoUrl": "https://github.com/ZAAKS/Umbraco-Tag-Manager/raw/main/TagManager.AI/Clip/tag-manager-ai.mp4",
+      "Caption": "Create tags with AI"
+    }
+  ]
+}

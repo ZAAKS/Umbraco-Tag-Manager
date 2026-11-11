@@ -3,7 +3,7 @@
 	"id": "tagManagerAi",
 	"name": "Tag Manager AI",
 	"allowPackageTelemetry": true,
-	"version": "17.0.0",
+	"version": "17.0.1",
 	"extensions": [
 		{
 			"name": "Tag Manager AI EntryPoint",

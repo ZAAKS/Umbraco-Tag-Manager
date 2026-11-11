@@ -21,7 +21,7 @@ https://github.com/ZAAKS/Umbraco-Tag-Manager/raw/main/TagManager.AI/Clip/tag-man
 ## Install
 
 ```bash
-dotnet add package TagManager.AI --version 17.0.0
+dotnet add package TagManager.AI --version 17.0.1
 ```
 
 Source: [github.com/ZAAKS/Umbraco-Tag-Manager](https://github.com/ZAAKS/Umbraco-Tag-Manager)

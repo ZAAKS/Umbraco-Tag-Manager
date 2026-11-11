@@ -10,7 +10,7 @@ Use the package that matches the Umbraco version on the site. `TagManager.AI` is
 | --- | --- | --- |
 | 18 | TagManager 18.0.0 | `dotnet add package TagManager --version 18.0.0` |
 | 17 | TagManager 17.0.9 | `dotnet add package TagManager --version 17.0.9` |
-| 17, with Umbraco.AI | TagManager.AI 17.0.0 | `dotnet add package TagManager.AI --version 17.0.0` |
+| 17, with Umbraco.AI | TagManager.AI 17.0.1 | `dotnet add package TagManager.AI --version 17.0.1` |
 
 TagManager 18.0.0 depends on Umbraco 18 only. TagManager 17.0.9 depends on Umbraco 17 only. TagManager.AI is not part of the TagManager package.
 
