@@ -1,0 +1,15 @@
+{
+	"$schema": "../../umbraco-package-schema.json",
+	"id": "tagManagerAi",
+	"name": "Tag Manager AI",
+	"allowPackageTelemetry": true,
+	"version": "17.0.0",
+	"extensions": [
+		{
+			"name": "Tag Manager AI EntryPoint",
+			"alias": "TagManager.AI.EntryPoint",
+			"type": "backofficeEntryPoint",
+			"js": "/App_Plugins/TagManager.AI/tagmanager-ai.js"
+		}
+	]
+}

@@ -26,6 +26,9 @@ artifacts/
 .idea/
 *.sln.iml
 
+# Node
+node_modules/
+
 # NuGet
 *.nupkg
 *.snupkg

@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<Target Name="EnsureTagAiAppPluginsDir" BeforeTargets="BeforeBuild;ResolveStaticWebAssetsInputs">
+		<MakeDir Directories="$(MSBuildProjectDirectory)\wwwroot\App_Plugins\TagManager.AI" />
+	</Target>
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<StaticWebAssetBasePath>/</StaticWebAssetBasePath>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+		<Product>TagManager.AI</Product>
+		<PackageId>TagManager.AI</PackageId>
+		<Title>TagManager.AI</Title>
+		<Description>Optional Create with AI action for the Umbraco Tags editor. Requires Umbraco.AI.</Description>
+		<Version>17.0.0</Version>
+		<Authors>ZAAKS!</Authors>
+		<Company>ZAAKS!</Company>
+		<Copyright>$([System.DateTime]::Now.Year) © $(Authors)</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/ZAAKS/Umbraco-Tag-Manager</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/ZAAKS/Umbraco-Tag-Manager</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReleaseNotes>Optional Create with AI action for the Umbraco Tags editor. Requires Umbraco.AI 17.7 or newer and Umbraco CMS 17.5 or newer.</PackageReleaseNotes>
+		<PackageTags>umbraco plugin package</PackageTags>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Umbraco.Cms.Api.Common" Version="[17.5.0, 17.999999]" />
+		<PackageReference Include="Umbraco.Cms.Web.Common" Version="[17.5.0, 17.999999]" />
+		<PackageReference Include="Umbraco.AI" Version="[17.7.0, 17.999999]" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="Client\**" />
+		<Content Remove="Clip\**" />
+		<None Include="Client\public\umbraco-package.json" Pack="false" />
+		<None Include="Clip\**" Pack="false" />
+		<None Include="icon.png" Pack="true" PackagePath="\" />
+		<None Include="README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
+
+</Project>

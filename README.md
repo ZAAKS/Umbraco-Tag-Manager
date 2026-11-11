@@ -17,6 +17,14 @@ Here�s a quick look at how it appears in the Umbraco backoffice:
 
 ![Screenshot](https://raw.githubusercontent.com/ZAAKS/Umbraco-Tag-Manager/main/screenshot/TagManager.png)
 
+## TagManager.AI
+
+Optional **Create with AI** action for the built-in Tags editor. Install the separate `TagManager.AI` package when the site already has Umbraco.AI.
+
+![TagManager.AI](TagManager.AI/icon.png)
+
+https://github.com/ZAAKS/Umbraco-Tag-Manager/raw/main/TagManager.AI/Clip/tag-manager-ai.mp4
+
 
 
 ## Collaboration and Suggestions
